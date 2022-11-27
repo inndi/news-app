@@ -1,0 +1,12 @@
+.button {
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
+
+  &--primary {
+    background-color: var(--color-orange);
+  }
+  &--secondary {
+    background-color: var(--color-gray);
+  }
+}

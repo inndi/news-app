@@ -1,0 +1,17 @@
+:root {
+  --color-red: #ec6161;
+  --color-green: #55d069;
+  --color-orange: #ffa53f;
+  --color-gray: #d3d3d3;
+
+  --text-color: #000;
+  --background: #fff;
+
+  --font-size: 14px;
+  --font-size-secondary: 12px;
+}
+
+[data-theme='dark'] {
+  --text-color: #fff;
+  --background: #161625;
+}

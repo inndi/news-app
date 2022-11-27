@@ -1,0 +1,10 @@
+.input-text__field-container {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  & .error-message {
+    margin-top: 5px;
+  }
+}

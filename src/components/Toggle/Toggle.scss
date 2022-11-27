@@ -1,0 +1,51 @@
+$slider-width: 42px;
+$slider-height: 26px;
+$thumb-size: 26px;
+$color-gray: #d9d9d9;
+
+.toggle {
+  min-width: 42px;
+  min-height: 26px;
+  position: relative;
+
+  &__checkbox {
+    appearance: none;
+    cursor: pointer;
+
+    &:before {
+      content: '';
+      position: absolute;
+      display: block;
+      left: 0;
+      top: 0;
+      width: $slider-width;
+      height: $slider-height;
+      border-radius: 16px;
+      background: $color-gray;
+      transition: all 0.3s;
+    }
+
+    &:after {
+      width: $thumb-size;
+      height: $thumb-size;
+      content: '';
+      position: absolute;
+      display: block;
+      left: 0;
+      top: 0;
+      border-radius: 16px;
+      background: #fff;
+      border: 2px solid $color-gray;
+      transition: all 0.3s;
+    }
+
+    &:checked:after {
+      margin-left: 16px;
+      border: 2px solid var(--color-green);
+    }
+
+    &:checked:before {
+      background: var(--color-green);
+    }
+  }
+}

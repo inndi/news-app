@@ -1,0 +1,10 @@
+.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 200px;
+
+  & > .error-message {
+    text-align: center;
+  }
+}
