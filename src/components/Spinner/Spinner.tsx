@@ -15,7 +15,7 @@ const Spinner = ({ size = '14px', className = '', color = '#26C281' }: SpinnerPr
         height: size,
         borderColor: color,
       }}
-    ></div>
+    />
   );
 };
 

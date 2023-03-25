@@ -1,3 +1,5 @@
+// TODO: is it necessary in my project?
+
 export const debounce = (callback: Function, time: number = 300) => {
   let debounceTimer: NodeJS.Timeout;
 
@@ -32,30 +34,3 @@ export const throttle = (fn: Function, time: number) => {
     }, time);
   };
 };
-
-// export const throttle = (callback: Function, time: number = 300) => {
-//   let isThrottled = false;
-//   let savedArgs;
-//   let savedThis;
-
-//   function wrapper(...args: any[]) {
-//     if (isThrottled) {
-//       savedArgs = args;
-//       savedThis = wrapper;
-//       return;
-//     }
-//     callback(...args);
-
-//     isThrottled = true;
-
-//     setTimeout(() => {
-//       isThrottled = false;
-//       if (savedArgs) {
-//         wrapper.apply(savedThis, savedArgs);
-//         savedArgs = savedThis = null;
-//       }
-//     }, time);
-//   }
-
-//   return wrapper;
-// };

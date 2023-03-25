@@ -1,19 +1,49 @@
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import PagePreloader from './components/PagePreloader/PagePreloader';
-import { useAuth } from './contexts/authContext';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import { ROUTES } from './config/constants';
+import Footer from './features/Footer/Footer';
+import Modals from './features/Modals/Modals';
+import HomePage from './pages/HomePage/HomePage';
+import SavedArticlesPage from './pages/SavedArticlesPage/SavedArticlesPage';
 
-const AuthenticatedApp = lazy(() => import('./AuthenticatedApp'));
+import './styles/app.scss';
 
-const UnauthenticatedApp = lazy(() => import('./UnauthenticatedApp'));
-
+// TODO:  +? why App rerender ? because of dispatch hook
+//  + APP shouldn't rerender never
 const App = () => {
-  const { isLoggedIn } = useAuth();
+  console.log('App Render');
 
+  // TODO:  + move header and footer here (cant move header because of background)
   return (
-    <Suspense fallback={<PagePreloader />}>
-      {isLoggedIn ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-    </Suspense>
+    <div className="app">
+      <Routes>
+        <Route
+          path={ROUTES.savedNews}
+          element={
+            <ProtectedRoute>
+              <SavedArticlesPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.main}
+          element={
+            <>
+              <HomePage />
+
+              <Suspense fallback={<PagePreloader />}>
+                <Modals />
+              </Suspense>
+            </>
+          }
+        />
+      </Routes>
+      <Footer />
+    </div>
   );
 };
 

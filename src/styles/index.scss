@@ -1,5 +1,6 @@
 @use './normalize.scss' as *;
 @use './variables.scss' as *;
+@import url('./fonts.scss');
 
 html {
   box-sizing: border-box;

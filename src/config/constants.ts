@@ -1,6 +1,7 @@
 export const ROUTES = Object.freeze({
-  login: '/login',
-  register: '/register',
   notFound: './not-found',
+  savedNews: '/saved-news',
   main: '/',
 });
+
+export const LIMIT: number = 3;

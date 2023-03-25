@@ -1,7 +1,12 @@
 .error-message {
-  width: 100%;
-  color: var(--color-red);
-  font-size: var(--font-size-secondary);
-  min-height: 14px;
   margin: 0;
+  margin-bottom: 13px;
+  width: 358px;
+  transition: opacity 0.2s linear;
+  height: 16px;
+  font-family: var(--font-tertiary);
+  font-weight: var(--font-weight-primary);
+  font-size: var(--font-size-xs);
+  line-height: 1.2;
+  color: #ff0000;
 }

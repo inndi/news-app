@@ -1,0 +1,38 @@
+.articles-cards {
+  background-color: var(--color-search-result-bg);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__list {
+    padding: 62px 104px;
+    margin: 0;
+    background-color: var(--color-search-result-bg);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(288px, 400px));
+    justify-content: center;
+    grid-gap: 16px;
+  }
+
+  @media screen and (max-width: 1272px) {
+    &__list {
+      padding: 52px 80px;
+    }
+  }
+
+  @media screen and (max-width: 1106px) {
+    &__list {
+      padding: 32px 40px;
+      grid-gap: 8px;
+    }
+  }
+
+  @media screen and (max-width: 968px) {
+    &__list {
+      padding: 24px 16px 12px;
+      grid-gap: 10px;
+      grid-template-columns: repeat(auto-fit, 288px);
+    }
+  }
+}

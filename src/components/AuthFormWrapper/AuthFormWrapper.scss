@@ -1,0 +1,30 @@
+.auth-form-wrapper {
+  &__title {
+    margin: 0;
+    padding-top: 34px;
+    padding-bottom: 22px;
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-quaternary);
+    font-size: var(--font-size-3xl);
+    line-height: 1.2;
+    width: 360px;
+  }
+
+  &__redirect-text {
+    width: 360px;
+    padding-top: 16px;
+    margin: 0;
+    text-align: center;
+    color: var(--color-black);
+    font-family: var(--font-tertiary);
+    font-weight: var(--font-weight-primary);
+    font-size: var(--font-size-sm);
+    line-height: 1.2;
+    margin-bottom: 28px;
+  }
+
+  &__redirect-link {
+    color: var(--color-blue);
+    cursor: pointer;
+  }
+}

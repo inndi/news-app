@@ -1,12 +1,11 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
 import Button from '../../components/Button/Button';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import InputText from '../../components/InputText/InputText';
-import { ROUTES } from '../../config/constants';
 import { useAuth } from '../../contexts/authContext';
-import { RegisterValues } from '../../interfaces/interfaces';
+import { AuthFormProps, RegisterValues } from '../../interfaces/interfaces';
 import { checkSpace } from '../../utils/validationUtils';
 
 import './RegisterForm.scss';
@@ -15,21 +14,25 @@ interface RegisterFormValues extends RegisterValues {
   server?: string;
 }
 
-const RegisterForm = () => {
+const RegisterForm = ({ onSubmitSuccess }: AuthFormProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     getValues,
     setError,
-  } = useForm<RegisterFormValues>({ mode: 'onBlur' });
+    reset,
+  } = useForm<RegisterFormValues>({ mode: 'onChange' });
 
   const { register: authRegister } = useAuth();
-  const navigate = useNavigate();
 
   const onSubmit = (data: RegisterFormValues): void => {
+    console.log('onsubmit', data);
+
     authRegister(data)
-      .then(() => navigate(ROUTES.login))
+      .then(() => {
+        onSubmitSuccess();
+      })
       .catch(() => {
         setError('server', {
           type: 'server',
@@ -37,6 +40,15 @@ const RegisterForm = () => {
         });
       });
   };
+
+  useEffect(() => {
+    reset({
+      email: '',
+      username: '',
+      password: '',
+      confirmPassword: '',
+    });
+  }, [onSubmitSuccess]);
 
   console.log('RegisterForm Render');
   return (
@@ -107,11 +119,10 @@ const RegisterForm = () => {
         placeholder="Confirm password"
         errText={errors.confirmPassword?.message?.toString()}
       />
-
-      <Button type="submit" modifier="primary">
-        Submit
-      </Button>
       <ErrorMessage message={errors.server?.message?.toString()} />
+      <Button isPrimary={true} type="submit" disabled={!isValid}>
+        <p className="register-form__button-text">Submit</p>
+      </Button>
     </form>
   );
 };

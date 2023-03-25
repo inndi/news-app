@@ -1,12 +1,11 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
 import Button from '../../components/Button/Button';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import InputText from '../../components/InputText/InputText';
-import { ROUTES } from '../../config/constants';
 import { useAuth } from '../../contexts/authContext';
-import { LoginValues } from '../../interfaces/interfaces';
+import { AuthProps, LoginValues } from '../../interfaces/interfaces';
 import { checkSpace } from '../../utils/validationUtils';
 
 import './LoginForm.scss';
@@ -15,20 +14,30 @@ interface LoginFormValues extends LoginValues {
   server?: string;
 }
 
-const LoginForm = () => {
+const LoginForm = ({ id, onClose }: AuthProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     setError,
-  } = useForm<LoginFormValues>({ mode: 'onBlur' });
-  const navigate = useNavigate();
+    clearErrors,
+    reset,
+  } = useForm<LoginFormValues>({ mode: 'onChange' });
 
   const { login } = useAuth();
 
-  const onSubmit = (data: LoginFormValues) => {
+  useEffect(() => {
+    reset({
+      email: '',
+      password: '',
+    });
+  }, [onClose]);
+
+  const onSubmit = (data: LoginFormValues): void => {
     login(data)
-      .then(() => navigate(ROUTES.main))
+      .then(() => {
+        onClose(id);
+      })
       .catch(() => {
         setError('server', {
           type: 'server',
@@ -37,7 +46,7 @@ const LoginForm = () => {
       });
   };
 
-  console.log('LoginForm Render');
+  console.log('LoginForm Render', isValid);
   return (
     <form className="login-form" onSubmit={handleSubmit(onSubmit)} noValidate>
       <InputText
@@ -72,10 +81,15 @@ const LoginForm = () => {
         placeholder="Password"
         errText={errors.password?.message?.toString()}
       />
-      <Button type="submit" modifier="primary">
-        Submit
-      </Button>
       <ErrorMessage message={errors.server?.message?.toString()} />
+      <Button
+        isPrimary={true}
+        type="submit"
+        onClick={() => errors.server && clearErrors('server')}
+        disabled={!isValid}
+      >
+        <p className="login-form__button-text">Submit</p>
+      </Button>
     </form>
   );
 };

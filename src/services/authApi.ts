@@ -1,43 +1,36 @@
+import axios from 'axios';
+
 import { LoginValues, RegisterValues, UserData } from '../interfaces/interfaces';
 
-const user: UserData = {
-  email: 'inna@inna.com',
-  userName: 'Inna',
-  token: '3k2rn3jkq2b5tjk3bjk3nrkn4jktbjn2klrl2r9',
+const authApi = axios.create({
+  baseURL: 'http://localhost:3003',
+});
+
+interface AuthResponseData {
+  data: UserData;
+}
+
+const getUser = (token: string): Promise<AuthResponseData> => {
+  return authApi.get('/users/me', { headers: { Authorization: `Bearer ${token}` } });
 };
 
-const getUser = (token: string): Promise<UserData> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(user);
-    }, 2000);
+const login = ({ email, password }: LoginValues): Promise<AuthResponseData> => {
+  console.log(email, password);
+
+  return authApi.post('/signin', {
+    email,
+    password,
   });
 };
 
-const login = (data: LoginValues): Promise<UserData> => {
-  console.log(data);
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(user);
-    }, 2000);
+const register = ({ email, password, username }: RegisterValues): Promise<Response> => {
+  console.log(email, password, username);
+
+  return authApi.post('/signup', {
+    email: email,
+    password: password,
+    name: username,
   });
 };
 
-const register = (data: RegisterValues): Promise<UserData> => {
-  console.log(data);
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(user);
-    }, 2000);
-  });
-};
-
-const logout = (token: string | null): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve('ok');
-    }, 2000);
-  });
-};
-
-export { getUser, login, logout, register };
+export { getUser, login, register };

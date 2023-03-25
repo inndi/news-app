@@ -5,19 +5,36 @@ import './Button.scss';
 
 interface ButtonProps extends HTMLProps<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset';
-  modifier?: string;
+  className?: string;
+  isPrimary?: boolean;
+  isSecondary?: boolean;
+  isBlack?: boolean;
 }
 
 const Button = (props: ButtonProps) => {
-  const { type = 'button', modifier, children, ...rest } = props;
+  const {
+    type = 'button',
+    children,
+    className,
+    isPrimary,
+    isSecondary,
+    isBlack,
+    ...rest
+  } = props;
 
-  const className = classNames('button', {
-    [`button--${modifier}`]: !!modifier,
-  });
+  //TODO: + change name to secondary and classname
 
   console.log('Button Render');
   return (
-    <button {...rest} className={className} type={type}>
+    <button
+      {...rest}
+      className={classNames('button', className, {
+        button__secondary: isSecondary,
+        'button__secondary--black': isBlack,
+        button__primary: isPrimary,
+      })}
+      type={type}
+    >
       {children}
     </button>
   );

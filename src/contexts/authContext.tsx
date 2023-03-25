@@ -1,17 +1,18 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AxiosHeaders, AxiosRequestConfig } from 'axios';
 
 import PagePreloader from '../components/PagePreloader/PagePreloader';
 import { ROUTES } from '../config/constants';
-import { useDidMount } from '../hooks/hooks';
 import { LoginValues, RegisterValues, UserData } from '../interfaces/interfaces';
 import * as authApi from '../services/authApi';
+import { mainApi } from '../services/mainApi';
 
 interface AuthContextData {
   user: UserData | null;
   isLoggedIn: boolean;
   login: (data: LoginValues) => Promise<void>;
-  register: (data: RegisterValues) => Promise<UserData>;
+  register: (data: RegisterValues) => Promise<Response>;
   logout: () => void;
 }
 
@@ -20,45 +21,65 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+interface AxiosCustomHeaders extends AxiosHeaders {
+  Authorization?: string;
+}
+
 const AuthProvider = (props: AuthProviderProps) => {
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const token: string | null = localStorage.getItem('token');
+  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
 
   const navigate = useNavigate();
 
-  useDidMount(() => {
+  const setTokenToRequest = (token: string) => {
+    mainApi.interceptors.request.use((config: AxiosRequestConfig) => {
+      config.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${token}`,
+      } as AxiosCustomHeaders;
+      return config;
+    });
+  };
+
+  useEffect(() => {
     if (!token) return setIsLoading(false);
 
     authApi
       .getUser(token)
-      .then((res) => {
+      .then(({ data: res }) => {
         setCurrentUser(res);
-        navigate(ROUTES.main);
+        setTokenToRequest(token);
       })
       .catch(() => {})
       .finally(() => setIsLoading(false));
-  });
+  }, [token]);
 
   const login = (data: LoginValues) => {
-    return authApi.login(data).then((res) => {
+    return authApi.login(data).then(({ data: res }) => {
+      setToken(res.token);
       setCurrentUser(res);
       localStorage.setItem('token', res.token);
+      setTokenToRequest(res.token);
     });
+  };
+  const register = (data: RegisterValues) => {
+    console.log(data);
+
+    return authApi.register(data);
   };
 
   const logout = () => {
-    return authApi.logout(token).finally(() => {
-      setCurrentUser(null);
-      localStorage.removeItem('token');
-    });
+    setCurrentUser(null);
+    localStorage.removeItem('token');
+    navigate(ROUTES.main);
   };
 
   const authData: AuthContextData = {
     user: currentUser,
     isLoggedIn: !!currentUser,
     login,
-    register: authApi.register,
+    register,
     logout,
   };
 

@@ -2,16 +2,35 @@
   --color-red: #ec6161;
   --color-green: #55d069;
   --color-orange: #ffa53f;
-  --color-gray: #d3d3d3;
 
-  --text-color: #000;
-  --background: #fff;
+  --color-black: #000;
+  --color-white: #fff;
+  --color-gray: #b6bcbf;
+  --color-dark-gray: #1a1b22;
+  --color-blue: #2f71e5;
 
-  --font-size: 14px;
-  --font-size-secondary: 12px;
-}
+  --color-search-result-bg: #f5f6f7;
 
-[data-theme='dark'] {
-  --text-color: #fff;
-  --background: #161625;
+  //TODO:  + rename variables with comments
+  --font-primary: 'Roboto', sans-serif; // font
+  --font-secondary: 'Roboto-slab', sans-serif; // font-secondary
+  --font-tertiary: 'Inter', sans-serif; // font-tertiary
+
+  --font-weight-primary: 400; //font-weight
+  --font-weight-secondary: 500;
+  --font-weight-tertiary: 700;
+  --font-weight-quaternary: 900;
+
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 22px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 26px;
+  --font-size-5xl: 30px;
+  --font-size-6xl: 36px;
+  --font-size-7xl: 40px;
+  --font-size-8xl: 60px;
 }

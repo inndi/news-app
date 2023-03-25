@@ -24,14 +24,15 @@ const InputText = ({
   errText,
 }: InputProps) => {
   return (
-    <div className="input-text__field-container">
-      {title && <label className="input-text__field-name">{title}</label>}
+    <div className="input-text">
+      {title && <label className="input-text__title">{title}</label>}
 
       <input
-        className="input-text__field"
+        className={`input-text__input`}
         type={type}
         {...register(name, validation)}
         placeholder={placeholder}
+        autoComplete="off"
       />
 
       <ErrorMessage message={errText} />

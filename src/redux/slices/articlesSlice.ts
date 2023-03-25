@@ -1,0 +1,93 @@
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+  EntityState,
+} from '@reduxjs/toolkit';
+import axios from 'axios';
+
+import { NewsArticle, NewsArticles } from '../../interfaces/interfaces';
+import * as newsApi from '../../services/newsApi';
+import { RootState } from '../store';
+
+interface ArticlesState {
+  pending: boolean | null;
+  error: string | boolean;
+  keyword: string;
+}
+
+export const fetchArticles = createAsyncThunk(
+  'articles/fetchArticles',
+  async (keyword: string, { signal }) => {
+    const source = axios.CancelToken.source();
+
+    signal.addEventListener('abort', () => {
+      console.log('cancellation');
+      source.cancel();
+    });
+
+    const response = await newsApi.getArticles(keyword, source.token);
+    response.data.keyword = keyword;
+    return response.data;
+  },
+);
+
+const articlesAdapter = createEntityAdapter<NewsArticle>({
+  selectId: (article) => article.link,
+});
+
+const initialState: EntityState<NewsArticle> & ArticlesState =
+  articlesAdapter.getInitialState({
+    pending: null,
+    error: false,
+    keyword: '',
+  });
+
+export const articlesSlice = createSlice({
+  name: 'articles',
+  initialState: initialState,
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(fetchArticles.pending, (state) => {
+        state.error = false;
+        state.pending = true;
+        articlesAdapter.removeAll(state);
+      })
+      .addCase(fetchArticles.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.error = false;
+          const articles: NewsArticles = [];
+
+          action.payload.articles.forEach((article) => {
+            articles.push({
+              keyword: action.payload.keyword,
+              title: article.title,
+              text: article.description,
+              date: article.publishedAt,
+              source: article.source.name,
+              link: article.url,
+              image: article.urlToImage,
+            });
+          });
+
+          articlesAdapter.upsertMany(state, articles);
+          state.keyword = action.payload.keyword;
+          state.pending = false;
+        }
+        state.pending = false;
+      })
+      .addCase(fetchArticles.rejected, (state, action) => {
+        state.pending = false;
+        action.error.name === 'AbortError'
+          ? (state.error = action.error.name)
+          : (state.error = true);
+      });
+  },
+});
+
+export const articlesSelectors = articlesAdapter.getSelectors<RootState>(
+  (state) => state.articles,
+);
+
+export default articlesSlice.reducer;

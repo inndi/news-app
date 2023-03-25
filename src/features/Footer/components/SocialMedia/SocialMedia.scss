@@ -1,0 +1,20 @@
+.social-media {
+  padding: 0;
+  margin: 0;
+  margin-right: 104px;
+  min-width: 72px;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+@media screen and (max-width: 1106px) {
+  .social-media {
+    margin-right: 20px;
+
+    &__link {
+      width: 22px;
+      height: 22px;
+    }
+  }
+}
