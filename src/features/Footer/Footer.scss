@@ -1,0 +1,33 @@
+.footer {
+  width: 100%;
+  min-height: 80px;
+  background-color: var(--color-white);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: auto;
+
+  &__nav-container {
+    display: flex;
+  }
+}
+
+@media screen and (width <= 1106px) {
+  .footer {
+    min-height: 66px;
+  }
+}
+
+@media screen and (width <= 772px) {
+  .footer {
+    max-height: 176px;
+    flex-direction: column-reverse;
+    padding: 20px 0 22px;
+
+    &__nav-container {
+      justify-content: space-between;
+      margin-bottom: 38px;
+      height: 74px;
+    }
+  }
+}

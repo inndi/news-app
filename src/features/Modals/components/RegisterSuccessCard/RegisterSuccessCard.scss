@@ -1,0 +1,41 @@
+.register-success-card {
+  &__title {
+    margin: 0;
+    padding: 43px 0 0;
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-quaternary);
+    font-size: var(--font-size-3xl);
+    line-height: 1.2;
+    width: 360px;
+  }
+
+  &__link {
+    width: 360px;
+    padding-top: 14px;
+    margin: 0;
+    font-family: var(--font-tertiary);
+    font-weight: var(--font-weight-primary);
+    font-size: var(--font-size-lg);
+    line-height: 1.2;
+    color: var(--color-blue);
+    cursor: pointer;
+    margin-bottom: 47px;
+  }
+
+  @media screen and (width <= 1106px) {
+    &__link {
+      width: 358px;
+    }
+  }
+
+  @media screen and (width <= 490px) {
+    &__title {
+      font-size: var(--font-size-2xl);
+    }
+
+    &__link {
+      width: 100%;
+      font-size: var(--font-size-md);
+    }
+  }
+}

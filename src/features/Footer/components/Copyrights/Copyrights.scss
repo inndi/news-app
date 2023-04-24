@@ -1,0 +1,27 @@
+.copyrights {
+  margin: 0;
+  align-self: center;
+  color: var(--color-gray);
+  font-weight: var(--font-weight-primary);
+  font-size: var(--font-size-md);
+  line-height: 1.4;
+  padding-left: 104px;
+
+  @media screen and (width <= 1272px) {
+    & {
+      padding-left: 80px;
+    }
+  }
+
+  @media screen and (width <= 1106px) {
+    & {
+      padding-left: 24px;
+    }
+  }
+
+  @media screen and (width <= 766px) {
+    & {
+      padding: 0 16px;
+    }
+  }
+}

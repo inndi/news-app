@@ -1,0 +1,11 @@
+.register-form {
+  & > .error-message {
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  &__button-text {
+    margin: 0;
+    min-width: 360px;
+  }
+}
