@@ -13,14 +13,11 @@ const SavedArticlesHeader = () => {
   const keywords = useAppSelector((state: RootState) =>
     selectSortedKeywordsByFrequency(state),
   );
-  const getKeywordsRatingString = () => {
+  const getKeywordsFrequencyString = () => {
     return keywords.length <= 3
       ? ` ${keywords.join(', ')}`
       : `${keywords[0]}, ${keywords[1]} and ${keywords.length - 2} other`;
   };
-
-  // TODO:  + check renders
-  //  + move selector to selectors.ts and all other selectors if they are exist
 
   console.log('SavedArticlesHeader Render');
   return (
@@ -32,7 +29,7 @@ const SavedArticlesHeader = () => {
       <p className="saved-articles-header__text">
         By keywords:
         <span className="saved-articles-header__keywords">
-          {getKeywordsRatingString()}
+          {getKeywordsFrequencyString()}
         </span>
       </p>
     </section>

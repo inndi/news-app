@@ -1,14 +1,17 @@
 import AboutAuthor from '../../components/AboutAuthor/AboutAuthor';
 import ArticlesSearch from '../../features/ArticlesSearch/ArticlesSearch';
-import Header from '../../features/Header/Header';
+import { useDidMount } from '../../hooks/hooks';
+import { scrollToTop } from '../../utils/generalUtils';
 
 import './HomePage.scss';
 
 const HomePage = () => {
+  useDidMount(() => {
+    scrollToTop();
+  });
   console.log('HomePage Render');
   return (
     <div className="home-page">
-      <Header />
       <main className="home-page__main">
         <ArticlesSearch />
         <AboutAuthor />

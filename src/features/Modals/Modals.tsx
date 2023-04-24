@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, memo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 import Modal from '../../components/Modal/Modal';
@@ -19,13 +19,12 @@ const Modals = () => {
   const modals = useAppSelector((state) => state.modals);
   const dispatch = useAppDispatch();
 
-  const onClose = (id?: string): any => {
+  const onClose = useCallback((id?: string): void => {
     dispatch(closeModal(id));
-  };
+  }, []);
 
   const renderComponent = (modal: ModalData) => {
     const Component = components[modal.id];
-    console.log(modal.props);
     return <Component {...modal.props} id={modal.id} onClose={onClose} />;
   };
 
@@ -42,4 +41,4 @@ const Modals = () => {
     : null;
 };
 
-export default Modals;
+export default memo(Modals);

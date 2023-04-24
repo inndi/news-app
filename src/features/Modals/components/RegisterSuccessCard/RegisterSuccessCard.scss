@@ -22,13 +22,13 @@
     margin-bottom: 47px;
   }
 
-  @media screen and (max-width: 1106px) {
+  @media screen and (width <= 1106px) {
     &__link {
       width: 358px;
     }
   }
 
-  @media screen and (max-width: 490px) {
+  @media screen and (width <= 490px) {
     &__title {
       font-size: var(--font-size-2xl);
     }

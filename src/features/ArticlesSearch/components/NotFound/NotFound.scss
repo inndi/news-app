@@ -1,4 +1,4 @@
-.not-found-section {
+.not-found {
   padding: 80px 0;
   width: 100%;
   background-color: var(--color-search-result-bg);
@@ -31,7 +31,7 @@
     text-align: center;
   }
 
-  @media screen and (max-width: 1106px) {
+  @media screen and (width <= 1106px) {
     & {
       padding: 40px 0;
     }
@@ -53,7 +53,7 @@
     }
   }
 
-  @media screen and (max-width: 766px) {
+  @media screen and (width <= 766px) {
     & {
       padding: 20px 0;
     }

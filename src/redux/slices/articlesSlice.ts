@@ -4,7 +4,7 @@ import {
   createSlice,
   EntityState,
 } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { CancelTokenSource } from 'axios';
 
 import { NewsArticle, NewsArticles } from '../../interfaces/interfaces';
 import * as newsApi from '../../services/newsApi';
@@ -16,13 +16,16 @@ interface ArticlesState {
   keyword: string;
 }
 
+let source: CancelTokenSource;
+
 export const fetchArticles = createAsyncThunk(
   'articles/fetchArticles',
   async (keyword: string, { signal }) => {
-    const source = axios.CancelToken.source();
+    // cancel prev request
+    source?.cancel();
+    source = axios.CancelToken.source();
 
     signal.addEventListener('abort', () => {
-      console.log('cancellation');
       source.cancel();
     });
 
@@ -78,10 +81,10 @@ export const articlesSlice = createSlice({
         state.pending = false;
       })
       .addCase(fetchArticles.rejected, (state, action) => {
-        state.pending = false;
-        action.error.name === 'AbortError'
-          ? (state.error = action.error.name)
-          : (state.error = true);
+        if (action.error.name !== ('CanceledError' || 'AbortError')) {
+          state.pending = false;
+          state.error = true;
+        }
       });
   },
 });

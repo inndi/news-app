@@ -4,13 +4,13 @@
   height: 21px;
   display: flex;
 
-  @media screen and (max-width: 1106px) {
+  @media screen and (width <= 1106px) {
     & {
       width: 204px;
     }
   }
 
-  @media screen and (max-width: 766px) {
+  @media screen and (width <= 766px) {
     & {
       height: 16px;
     }

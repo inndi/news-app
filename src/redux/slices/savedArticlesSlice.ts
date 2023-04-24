@@ -8,11 +8,13 @@ import {
 
 import { NewsArticle, NewsArticles } from '../../interfaces/interfaces';
 import * as mainApi from '../../services/mainApi';
+import { RootState } from '../store';
 
 export const fetchSavedArticles = createAsyncThunk(
   'savedArticles/fetchSavedArticles',
   async () => {
     const response = await mainApi.getSavedArticles();
+
     return response.data;
   },
 );
@@ -21,7 +23,6 @@ export const saveNewArticle = createAsyncThunk(
   'savedArticles/saveNewArticle',
   async (article: NewsArticle) => {
     const response = await mainApi.postArticle(article);
-    // console.log(response);
     return response.data;
   },
 );
@@ -102,7 +103,7 @@ const savedArticlesSlice = createSlice({
   },
 });
 
-export const savedArticlesSelectors = savedArticlesAdapter.getSelectors<any>(
+export const savedArticlesSelectors = savedArticlesAdapter.getSelectors<RootState>(
   (state) => state.savedArticles,
 );
 

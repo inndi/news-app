@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { memo, useState } from 'react';
 import { EntityId } from '@reduxjs/toolkit';
+import classNames from 'classnames';
 
 import BookmarkIcon from '../../../../components/iconsComponents/BookmarkIcon';
 import TrashIcon from '../../../../components/iconsComponents/TrashIcon';
@@ -54,41 +55,32 @@ const ArticleCard = ({ articleId, source }: ArticleCardProps) => {
 
   const isSaved = source === 'savedArticles';
 
-  const [tooltipText, setTooltipText] = useState<string | null>(null);
+  const [isError, setIsError] = useState<boolean>(false);
 
-  const handleTooltipText = (isError?: boolean): void => {
-    setTooltipText(() => {
-      if (isError) {
-        return '❗Server Error';
-      } else if (!isSaved && isLoggedIn) {
-        return null;
-      } else {
-        return isSaved ? 'Remove from saved' : 'Sign in to save articles';
-      }
-    });
+  const getTooltipContent = () => {
+    if (isError) {
+      return '❗Server Error';
+    }
+    return isSaved ? 'Remove from saved' : 'Sign in to save articles';
   };
-
-  useEffect(() => {
-    handleTooltipText();
-  }, [isLoggedIn]);
 
   if (!article) return null;
 
   const removeArticleFromSaved = (id: string) => {
     dispatch(removeArticle(id))
       .unwrap()
-      .then(() => handleTooltipText())
+      .then(() => isError && setIsError(false))
       .catch((err) => {
-        handleTooltipText(!!err);
+        setIsError(!!err);
       });
   };
 
   const saveArticle = (article: NewsArticle) => {
     dispatch(saveNewArticle(article))
       .unwrap()
-      .then(() => handleTooltipText())
+      .then(() => isError && setIsError(false))
       .catch((err) => {
-        handleTooltipText(!!err);
+        setIsError(!!err);
       });
   };
 
@@ -101,7 +93,7 @@ const ArticleCard = ({ articleId, source }: ArticleCardProps) => {
         }),
       );
     }
-
+    // if card saved => it has articleServerId
     return articleServerId
       ? removeArticleFromSaved(articleServerId)
       : saveArticle(article);
@@ -109,11 +101,7 @@ const ArticleCard = ({ articleId, source }: ArticleCardProps) => {
 
   const getIcon = () => {
     return isSaved ? (
-      <TrashIcon
-        className={isLoggedIn && !isMarked ? 'article-card__trash-icon' : undefined}
-        stroke="#B6BCBF"
-        color="#B6BCBF"
-      />
+      <TrashIcon className="article-card__trash-icon" stroke="#B6BCBF" color="#B6BCBF" />
     ) : (
       <BookmarkIcon
         className={isLoggedIn && !isMarked ? 'article-card__bookmark-icon' : undefined}
@@ -122,31 +110,34 @@ const ArticleCard = ({ articleId, source }: ArticleCardProps) => {
       />
     );
   };
-  // TODO:  + create global component LazyImage
+
+  console.log('Article render', articleId);
 
   return (
     <li className="article-card">
-      <div className="article-card__image-container">
-        <LazyImage
-          className="article-card__image"
-          src={image}
-          alt={title}
-          spinnerSize="25px"
-        />
-      </div>
+      <LazyImage
+        className="article-card__image"
+        src={image}
+        alt={title}
+        spinnerSize="25px"
+      />
       {source === 'savedArticles' && (
-        <p className="article-card__keyword article-card__absolute-item">{keyword}</p>
+        <p className="article-card__keyword article-card__toolbar-item">{keyword}</p>
       )}
       <button
-        className="article-card__btn article-card__absolute-item"
+        className={classNames('article-card__btn article-card__toolbar-item', {
+          'article-card__btn--hover': isSaved || !isLoggedIn,
+        })}
         onClick={handleArticleBtnClick}
       >
         {getIcon()}
       </button>
-      {tooltipText && (
-        <p className="article-card__tooltip article-card__absolute-item">{tooltipText}</p>
-      )}
-
+      <p
+        className="article-card__tooltip article-card__toolbar-item"
+        style={{ opacity: isError ? 1 : undefined }}
+      >
+        {getTooltipContent()}
+      </p>
       <div className="article-card__info-box">
         <p className="article-card__date">{date && formatDate(date)}</p>
         <h2 className="article-card__title">{title}</h2>
@@ -157,4 +148,4 @@ const ArticleCard = ({ articleId, source }: ArticleCardProps) => {
   );
 };
 
-export default ArticleCard;
+export default memo(ArticleCard);

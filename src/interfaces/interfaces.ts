@@ -18,7 +18,7 @@ export interface AuthProps {
   onClose: (id?: string) => void;
   title?: string;
   redirectText?: string;
-  id?: string;
+  id: string;
 }
 
 export interface AuthFormProps {

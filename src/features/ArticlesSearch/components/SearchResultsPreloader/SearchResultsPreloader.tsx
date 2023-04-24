@@ -6,7 +6,7 @@ const SearchResultsPreloader = ({ text }: BasicContent) => {
   return (
     <section className="search-results-preloader">
       <div className="search-results-preloader__circle-box">
-        <i className="search-results-preloader__circle-animation"></i>
+        <span className="search-results-preloader__circle-animation"></span>
       </div>
       <p className="search-results-preloader__text">{text}</p>
     </section>

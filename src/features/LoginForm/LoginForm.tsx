@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Button from '../../components/Button/Button';
@@ -21,17 +20,9 @@ const LoginForm = ({ id, onClose }: AuthProps) => {
     formState: { errors, isValid },
     setError,
     clearErrors,
-    reset,
   } = useForm<LoginFormValues>({ mode: 'onChange' });
 
   const { login } = useAuth();
-
-  useEffect(() => {
-    reset({
-      email: '',
-      password: '',
-    });
-  }, [onClose]);
 
   const onSubmit = (data: LoginFormValues): void => {
     login(data)
@@ -83,7 +74,7 @@ const LoginForm = ({ id, onClose }: AuthProps) => {
       />
       <ErrorMessage message={errors.server?.message?.toString()} />
       <Button
-        isPrimary={true}
+        isPrimary
         type="submit"
         onClick={() => errors.server && clearErrors('server')}
         disabled={!isValid}

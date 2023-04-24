@@ -1,4 +1,4 @@
-import { SyntheticEvent, useCallback, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 
 import noImageIcon from '../../assets/images/no-picture-available-icon-1.png';
 import Spinner from '../Spinner/Spinner';
@@ -12,31 +12,25 @@ interface LazyImageProps {
 
 const LazyImage = ({ className, src, alt, spinnerSize, ...rest }: LazyImageProps) => {
   const [loaded, setLoaded] = useState(false);
-  const onLoad = useCallback(() => {
-    // console.log('loaded');
-    setLoaded(true);
-  }, []);
+
+  const onLoad = () => setLoaded(true);
 
   const onError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src = noImageIcon;
   };
 
-  // console.log('LazyImage Render');
   return (
-    <>
-      <div style={{ display: !loaded ? 'block' : 'none' }}>
-        <Spinner size={spinnerSize} />
-      </div>
+    <div className={`lazy-image ${className}`}>
+      {!loaded && <Spinner size={spinnerSize} />}
       <img
-        style={{ display: !loaded ? 'none' : 'block' }}
-        className={className}
+        style={{ display: loaded ? 'block' : 'none' }}
         src={src ? src : noImageIcon}
         onError={(e) => onError(e)}
         onLoad={onLoad}
         alt={alt}
         {...rest}
       />
-    </>
+    </div>
   );
 };
 

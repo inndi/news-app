@@ -1,35 +1,11 @@
 .home-page {
-  background-image: url('../../assets/images/georgia-de-lotz--UsJoNxLaNo-unsplash-biger.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-}
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 
-@media screen and (min-width: 1436px) {
-  body {
-    background-image: url('../../assets/images/georgia-de-lotz--UsJoNxLaNo-unsplash-mobile.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-}
-
-@media screen and (max-width: 1168px) {
-  .home-page {
-    background-size: initial;
-    background-image: url('../../assets/images/georgia-de-lotz--UsJoNxLaNo-unsplash.png');
-    background-position-x: center;
-  }
-}
-
-@media screen and (max-width: 766px) {
-  .home-page {
-    background-size: contain;
-    background-image: url('../../assets/images/georgia-de-lotz--UsJoNxLaNo-unsplash-mobile.png');
-  }
-}
-
-@media screen and (max-width: 378px) {
-  .home-page {
-    background-size: cover;
-    background-position-x: center;
+  &__main {
+    flex-grow: 1;
+    display: grid;
+    grid-template-rows: min-content 1fr;
   }
 }

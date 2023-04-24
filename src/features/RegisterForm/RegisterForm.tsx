@@ -21,34 +21,30 @@ const RegisterForm = ({ onSubmitSuccess }: AuthFormProps) => {
     formState: { errors, isValid },
     getValues,
     setError,
-    reset,
+    clearErrors,
   } = useForm<RegisterFormValues>({ mode: 'onChange' });
 
   const { register: authRegister } = useAuth();
 
-  const onSubmit = (data: RegisterFormValues): void => {
-    console.log('onsubmit', data);
+  const onSubmit = (values: RegisterFormValues): void => {
+    console.log('onsubmit', values);
 
-    authRegister(data)
+    authRegister(values)
       .then(() => {
         onSubmitSuccess();
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
+
         setError('server', {
           type: 'server',
-          message: 'Something went wrong on server side',
+          message:
+            err.code === 'ERR_BAD_REQUEST'
+              ? 'A user with this email already exists'
+              : 'Something went wrong on server side',
         });
       });
   };
-
-  useEffect(() => {
-    reset({
-      email: '',
-      username: '',
-      password: '',
-      confirmPassword: '',
-    });
-  }, [onSubmitSuccess]);
 
   console.log('RegisterForm Render');
   return (
@@ -120,7 +116,12 @@ const RegisterForm = ({ onSubmitSuccess }: AuthFormProps) => {
         errText={errors.confirmPassword?.message?.toString()}
       />
       <ErrorMessage message={errors.server?.message?.toString()} />
-      <Button isPrimary={true} type="submit" disabled={!isValid}>
+      <Button
+        isPrimary
+        type="submit"
+        disabled={!isValid}
+        onClick={() => errors.server && clearErrors('server')}
+      >
         <p className="register-form__button-text">Submit</p>
       </Button>
     </form>

@@ -1,4 +1,7 @@
 .saved-articles-page {
   background-image: none;
   background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }

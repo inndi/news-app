@@ -1,5 +1,5 @@
-import githubIcon from '../../../../assets/images/icon-github.svg';
-import fbIcon from '../../../../assets/images/social-fb.svg';
+import { ReactComponent as GithubIcon } from '../../../../assets/images/icon-github.svg';
+import { ReactComponent as LinkedinIcon } from '../../../../assets/images/linkedin.svg';
 
 import './SocialMedia.scss';
 
@@ -7,18 +7,20 @@ const SocialMedia = () => {
   console.log('SocialMedia Render');
   return (
     <ul className="social-media">
-      <li className="social-media__link">
+      <li className="social-media__item">
         <a target="_blank" rel="noreferrer" href="https://github.com/inndi">
-          <img className="social-media__link-img" src={githubIcon} alt="github icon" />
+          <GithubIcon height="100%" width="100%" title="github icon" />
         </a>
       </li>
-      <li className="social-media__link">
+
+      <li className="social-media__item">
+        {' '}
         <a
           target="_blank"
           rel="noreferrer"
-          href="https://www.facebook.com/profile.php?id=100028541162326"
+          href="https://www.linkedin.com/in/inna-spivakova-7a5a41228/"
         >
-          <img className="social-media__link-img" src={fbIcon} alt="facebook icon" />
+          <LinkedinIcon height="100%" width="100%" title="linkedIn icon" />
         </a>
       </li>
     </ul>
