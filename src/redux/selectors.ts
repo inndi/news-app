@@ -2,8 +2,15 @@ import { createSelector } from 'reselect';
 
 import { savedArticlesSelectors } from './slices/savedArticlesSlice';
 
+export const savedArticlesIdsSelector = createSelector(
+  savedArticlesSelectors.selectIds,
+
+  (ids) => [...ids].reverse(),
+);
+
 export const selectSortedKeywordsByFrequency = createSelector(
   savedArticlesSelectors.selectAll,
+
   (articles) => {
     const keywords: { [key: string]: number } = {};
     articles.forEach(

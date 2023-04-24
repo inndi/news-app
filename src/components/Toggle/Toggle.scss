@@ -12,7 +12,7 @@ $color-gray: #d9d9d9;
     appearance: none;
     cursor: pointer;
 
-    &:before {
+    &::before {
       content: '';
       position: absolute;
       display: block;
@@ -25,7 +25,7 @@ $color-gray: #d9d9d9;
       transition: all 0.3s;
     }
 
-    &:after {
+    &::after {
       width: $thumb-size;
       height: $thumb-size;
       content: '';
@@ -39,12 +39,12 @@ $color-gray: #d9d9d9;
       transition: all 0.3s;
     }
 
-    &:checked:after {
+    &:checked::after {
       margin-left: 16px;
       border: 2px solid var(--color-green);
     }
 
-    &:checked:before {
+    &:checked::before {
       background: var(--color-green);
     }
   }

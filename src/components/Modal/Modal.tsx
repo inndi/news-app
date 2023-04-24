@@ -28,6 +28,7 @@ const Modal = ({ children, onClose, id }: ModalProps) => {
     }
   };
 
+  console.log('Modal Render');
   return (
     <div className="modal" onMouseDown={handleOverlay}>
       <div className="modal__container">

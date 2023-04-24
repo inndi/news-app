@@ -1,12 +1,8 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AxiosHeaders, AxiosRequestConfig } from 'axios';
 
 import PagePreloader from '../components/PagePreloader/PagePreloader';
-import { ROUTES } from '../config/constants';
 import { LoginValues, RegisterValues, UserData } from '../interfaces/interfaces';
 import * as authApi from '../services/authApi';
-import { mainApi } from '../services/mainApi';
 
 interface AuthContextData {
   user: UserData | null;
@@ -21,58 +17,39 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-interface AxiosCustomHeaders extends AxiosHeaders {
-  Authorization?: string;
-}
-
 const AuthProvider = (props: AuthProviderProps) => {
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
-
-  const navigate = useNavigate();
-
-  const setTokenToRequest = (token: string) => {
-    mainApi.interceptors.request.use((config: AxiosRequestConfig) => {
-      config.headers = {
-        ...config.headers,
-        Authorization: `Bearer ${token}`,
-      } as AxiosCustomHeaders;
-      return config;
-    });
-  };
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
 
   useEffect(() => {
+    // non authenticated user
     if (!token) return setIsLoading(false);
 
     authApi
       .getUser(token)
-      .then(({ data: res }) => {
-        setCurrentUser(res);
-        setTokenToRequest(token);
+      .then(({ data: user }) => {
+        setCurrentUser(user);
       })
-      .catch(() => {})
+      .catch(console.error)
       .finally(() => setIsLoading(false));
   }, [token]);
 
-  const login = (data: LoginValues) => {
-    return authApi.login(data).then(({ data: res }) => {
-      setToken(res.token);
-      setCurrentUser(res);
-      localStorage.setItem('token', res.token);
-      setTokenToRequest(res.token);
+  const login = (values: LoginValues) => {
+    return authApi.login(values).then(({ data: user }) => {
+      setToken(user.token);
+      setCurrentUser(user);
+      localStorage.setItem('token', user.token);
     });
   };
-  const register = (data: RegisterValues) => {
-    console.log(data);
-
-    return authApi.register(data);
+  const register = (values: RegisterValues) => {
+    return authApi.register(values);
   };
 
   const logout = () => {
     setCurrentUser(null);
+    setToken(null);
     localStorage.removeItem('token');
-    navigate(ROUTES.main);
   };
 
   const authData: AuthContextData = {

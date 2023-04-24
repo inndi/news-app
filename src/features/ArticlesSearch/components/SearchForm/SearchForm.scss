@@ -1,5 +1,5 @@
 .search-form {
-  padding: 80px 0;
+  padding: 65px 0;
   color: var(--color-white);
   max-width: 608px;
 
@@ -54,7 +54,7 @@
     font-family: var(--font-primary);
   }
 
-  @media screen and (max-width: 1106px) {
+  @media screen and (width <= 1106px) {
     & {
       padding: 38px 0 48px;
       max-width: 448px;
@@ -84,7 +84,7 @@
     }
   }
 
-  @media screen and (max-width: 766px) {
+  @media screen and (width <= 766px) {
     & {
       padding: 30px 0 32px;
       max-width: 288px;

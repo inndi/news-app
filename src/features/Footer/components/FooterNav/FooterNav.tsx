@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { ROUTES } from '../../../../config/constants';
+import { scrollToTop } from '../../../../utils/generalUtils';
 
 import './FooterNav.scss';
 
@@ -9,7 +10,11 @@ const FooterNav = () => {
   return (
     <ul className="footer-nav">
       <li>
-        <Link className="footer-nav__link" to={ROUTES.main}>
+        <Link
+          className="footer-nav__link"
+          to={ROUTES.main}
+          onClick={() => scrollToTop(true)}
+        >
           Home
         </Link>
       </li>

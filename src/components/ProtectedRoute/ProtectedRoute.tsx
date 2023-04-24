@@ -11,7 +11,6 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { isLoggedIn } = useAuth();
-
   const dispatch = useAppDispatch();
 
   const handleRedirectAuth = () => {

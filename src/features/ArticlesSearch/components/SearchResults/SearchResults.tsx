@@ -7,7 +7,10 @@ import { useDidUpdate } from '../../../../hooks/hooks';
 import { useAppSelector } from '../../../../redux/hooks';
 import { articlesSelectors } from '../../../../redux/slices/articlesSlice';
 import ArticlesCards from '../../../ArticlesCards/ArticlesCards';
-import PendingSearchResultsLayout from '../../../PendingSearchResultsLayout/PendingSearchResultsLayout';
+import PendingErrorOverlay from '../../../PendingErrorOverlay/PendingErrorOverlay';
+import Error from '../Error/Error';
+import NotFound from '../NotFound/NotFound';
+import SearchResultsPreloader from '../SearchResultsPreloader/SearchResultsPreloader';
 
 import './SearchResults.scss';
 
@@ -15,7 +18,8 @@ const SearchResults = () => {
   const [offset, setOffset] = useState<number>(0);
   const [newsArticlesIds, setNewsArticlesIds] = useState<EntityId[]>([]);
 
-  const pending = useAppSelector((state) => state.articles);
+  const pending = useAppSelector((state) => state.articles.pending);
+  const error = useAppSelector((state) => state.articles.error);
   const articlesIds = useAppSelector(articlesSelectors.selectIds);
   const totalArticles = useAppSelector(articlesSelectors.selectTotal);
 
@@ -39,13 +43,10 @@ const SearchResults = () => {
     setOffset((prevOffset) => prevOffset + LIMIT);
   };
 
-  // REVIEW: test performance, add just last 3 items instead of from 0 to Offset
   const addMoreCards = (start: number, end: number): EntityId[] => {
     if (!articlesIds) return [];
 
-    const slicedArticles = articlesIds.slice(start, end);
-
-    return slicedArticles;
+    return articlesIds.slice(start, end);
   };
 
   const showMoreBtn = totalArticles > LIMIT && offset < totalArticles;
@@ -53,22 +54,39 @@ const SearchResults = () => {
   console.log('Render handleShowMoreArticles');
   return (
     <section className="search-results">
-      <PendingSearchResultsLayout>
+      <PendingErrorOverlay
+        isPending={pending}
+        isError={!!error}
+        isNoResults={!totalArticles}
+        pendingText={() => <SearchResultsPreloader text="Searching for news..." />}
+        errorText={() => (
+          <Error
+            title="Sorry, something went wrong during the request. There may be a connection issue or
+        the server may be down. Please try again later."
+          />
+        )}
+        noResultsMessage={() => (
+          <NotFound
+            title="Nothing found"
+            text={'Sorry, but nothing matched your search terms.'}
+          />
+        )}
+      >
         <>
           {!!newsArticlesIds?.length && (
-            <div className="cards-section">
-              <h2 className="cards-section__title">Search results</h2>
+            <div className="search-results__cards-section">
+              {' '}
+              <h2 className="search-results__title">Search results</h2>
               <ArticlesCards articlesIds={newsArticlesIds} source="articles" />
-
               {showMoreBtn && (
-                <Button isPrimary={true} onClick={handleShowArticles}>
+                <Button isPrimary onClick={handleShowArticles}>
                   Show more
                 </Button>
               )}
             </div>
           )}
         </>
-      </PendingSearchResultsLayout>
+      </PendingErrorOverlay>
     </section>
   );
 };

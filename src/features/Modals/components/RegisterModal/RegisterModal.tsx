@@ -18,13 +18,13 @@ const RegisterModal = (props: AuthProps) => {
     <section className="register-modal">
       {isRegisterSuccessCard ? (
         <RegisterSuccessCard
-          id={`${id}`}
+          id={id}
           title="Registration successfully completed!"
           redirectText="Sign in"
           onClose={onClose}
         />
       ) : (
-        <AuthFormWrapper title={title} redirectText={redirectText} id={`${id}`}>
+        <AuthFormWrapper title={title} redirectText={redirectText} id={id}>
           <RegisterForm onSubmitSuccess={onSubmitSuccess} />
         </AuthFormWrapper>
       )}

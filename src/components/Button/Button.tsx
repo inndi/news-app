@@ -8,30 +8,18 @@ interface ButtonProps extends HTMLProps<HTMLButtonElement> {
   className?: string;
   isPrimary?: boolean;
   isSecondary?: boolean;
-  isBlack?: boolean;
 }
 
 const Button = (props: ButtonProps) => {
-  const {
-    type = 'button',
-    children,
-    className,
-    isPrimary,
-    isSecondary,
-    isBlack,
-    ...rest
-  } = props;
-
-  //TODO: + change name to secondary and classname
+  const { type = 'button', children, className, isPrimary, isSecondary, ...rest } = props;
 
   console.log('Button Render');
   return (
     <button
       {...rest}
       className={classNames('button', className, {
-        button__secondary: isSecondary,
-        'button__secondary--black': isBlack,
-        button__primary: isPrimary,
+        'button--secondary': isSecondary,
+        'button--primary': isPrimary,
       })}
       type={type}
     >
