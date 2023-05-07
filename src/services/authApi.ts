@@ -3,7 +3,7 @@ import axios from 'axios';
 import { LoginValues, RegisterValues, UserData } from '../interfaces/interfaces';
 
 const authApi = axios.create({
-  baseURL: 'http://localhost:3003',
+  baseURL: 'https://news-app-api-1wtk.onrender.com',
 });
 
 interface AuthResponseData {

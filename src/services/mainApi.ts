@@ -8,7 +8,7 @@ interface AxiosCustomHeaders extends AxiosHeaders {
 }
 
 export const mainApi = axios.create({
-  baseURL: 'http://localhost:3003',
+  baseURL: 'https://news-app-api-1wtk.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   },
