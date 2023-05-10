@@ -47,6 +47,7 @@ const App = () => {
               <HomePage />
 
               <Suspense fallback={<PagePreloader />}>
+                {' '}
                 <Modals />
               </Suspense>
             </>

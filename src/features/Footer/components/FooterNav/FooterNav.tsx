@@ -18,16 +18,6 @@ const FooterNav = () => {
           Home
         </Link>
       </li>
-      <li>
-        <a
-          className="footer-nav__link"
-          target="_blank"
-          rel="noreferrer"
-          href="https://practicum.com/"
-        >
-          Practicum by Yandex
-        </a>
-      </li>
     </ul>
   );
 };

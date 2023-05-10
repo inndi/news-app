@@ -1,6 +1,7 @@
 import { EntityId } from '@reduxjs/toolkit';
 import axios, { AxiosHeaders, AxiosRequestConfig } from 'axios';
 
+import { API_URL } from '../config/constants';
 import { NewsArticle } from '../interfaces/interfaces';
 
 interface AxiosCustomHeaders extends AxiosHeaders {
@@ -8,7 +9,7 @@ interface AxiosCustomHeaders extends AxiosHeaders {
 }
 
 export const mainApi = axios.create({
-  baseURL: 'https://news-app-api-1wtk.onrender.com',
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },

@@ -189,6 +189,10 @@
       &__close-icon {
         display: block;
       }
+
+      & .button {
+        margin: 0 auto;
+      }
     }
   }
 }

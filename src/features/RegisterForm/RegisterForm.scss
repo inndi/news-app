@@ -1,4 +1,11 @@
 .register-form {
+  display: flex;
+  flex-direction: column;
+
+  & .button {
+    align-self: center;
+  }
+
   & > .error-message {
     text-align: center;
     margin-bottom: 0;

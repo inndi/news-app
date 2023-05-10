@@ -103,6 +103,11 @@
         'content';
       grid-template-columns: 1fr;
       grid-gap: 24px;
+
+      & .about-author__avatar {
+        justify-self: center;
+        margin: 0;
+      }
     }
 
     &__info {
