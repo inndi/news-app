@@ -9,7 +9,7 @@ const FooterNav = () => {
   console.log('FooterNav Render');
   return (
     <ul className="footer-nav">
-      <li>
+      <li className="footer-nav__item">
         <Link
           className="footer-nav__link"
           to={ROUTES.main}

@@ -9,6 +9,7 @@ import { useAuth } from '../../../../contexts/authContext';
 import { useAppDispatch } from '../../../../redux/hooks';
 import { MODAL_IDS, openModal } from '../../../../redux/slices/modalsSlice';
 import { removeAllArticles } from '../../../../redux/slices/savedArticlesSlice';
+import { scrollToTop } from '../../../../utils/generalUtils';
 
 import './NavMenu.scss';
 

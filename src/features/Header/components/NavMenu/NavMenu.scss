@@ -135,11 +135,10 @@
 
       &__list {
         visibility: hidden;
-        height: calc(100vh - 56px);
+        position: absolute;
         opacity: 0;
         transition: opacity 0.2s linear;
         background-color: var(--color-dark-gray);
-        position: fixed;
         width: 100%;
         top: 56px;
         left: 0;

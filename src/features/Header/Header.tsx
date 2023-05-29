@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { ROUTES } from '../../config/constants';
+import { scrollToTop } from '../../utils/generalUtils';
 import Logo from './components/Logo/Logo';
 import NavMenu from './components/NavMenu/NavMenu';
 
@@ -19,6 +20,7 @@ const Header = () => {
       document.body.style.overflow = 'auto';
     } else {
       setIsDropdownMenu(true);
+      scrollToTop(true);
       document.body.style.overflow = 'hidden';
     }
   }, [isDropdownMenu]);

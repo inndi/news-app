@@ -1,5 +1,6 @@
 import { RegisterOptions } from 'react-hook-form';
 
+import { scrollToTop } from '../../utils/generalUtils';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 import './InputText.scss';
