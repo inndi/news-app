@@ -5,6 +5,7 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import InputText from '../../components/InputText/InputText';
 import { useAuth } from '../../contexts/authContext';
 import { AuthProps, LoginValues } from '../../interfaces/interfaces';
+import { scrollToTop } from '../../utils/generalUtils';
 import { checkSpace } from '../../utils/validationUtils';
 
 import './LoginForm.scss';
@@ -28,6 +29,7 @@ const LoginForm = ({ id, onClose }: AuthProps) => {
     login(data)
       .then(() => {
         onClose(id);
+        scrollToTop(true);
       })
       .catch(() => {
         setError('server', {

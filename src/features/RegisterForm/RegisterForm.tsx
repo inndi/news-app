@@ -6,6 +6,7 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import InputText from '../../components/InputText/InputText';
 import { useAuth } from '../../contexts/authContext';
 import { AuthFormProps, RegisterValues } from '../../interfaces/interfaces';
+import { scrollToTop } from '../../utils/generalUtils';
 import { checkSpace } from '../../utils/validationUtils';
 
 import './RegisterForm.scss';
@@ -32,6 +33,7 @@ const RegisterForm = ({ onSubmitSuccess }: AuthFormProps) => {
     authRegister(values)
       .then(() => {
         onSubmitSuccess();
+        scrollToTop(true);
       })
       .catch((err) => {
         console.log(err);

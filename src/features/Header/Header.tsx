@@ -17,11 +17,9 @@ const Header = () => {
   const handleMenuIconClick = useCallback(() => {
     if (isDropdownMenu) {
       setIsDropdownMenu(false);
-      document.body.style.overflow = 'auto';
     } else {
       setIsDropdownMenu(true);
       scrollToTop(true);
-      document.body.style.overflow = 'hidden';
     }
   }, [isDropdownMenu]);
 
