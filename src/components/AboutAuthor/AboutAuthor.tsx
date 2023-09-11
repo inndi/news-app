@@ -19,8 +19,8 @@ const AboutAuthor = () => {
           <h2 className="about-author__title">About the author</h2>
           <p className="about-author__content">
             Hi, my name is Inna I'm a passionate and motivated junior web developer. I
-            have knowledge in HTML5, CSS3, JavaScript, Node, React, Redux, Git, SASS, BEM,
-            Webpack, Express, and MongoDB and can use them effectively.
+            have knowledge of React, Redux, TypeScript, JavaScript, HTML5, CSS3, Node.js,
+            Express.js, Git, SASS, BEM, Webpack, and MongoDB and can use them effectively.
           </p>
           <p className="about-author__content">
             I'm able to help businesses grow and increase their audience reach through the
