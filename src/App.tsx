@@ -12,7 +12,6 @@ import HomePage from './pages/HomePage/HomePage';
 import SavedArticlesPage from './pages/SavedArticlesPage/SavedArticlesPage';
 import { useAppDispatch } from './redux/hooks';
 import { fetchSavedArticles } from './redux/slices/savedArticlesSlice';
-import Test from './test';
 
 import './styles/app.scss';
 
@@ -30,7 +29,6 @@ const App = () => {
   console.log('App Render');
   return (
     <div className="app">
-      <Test />
       <Header />
       <Routes>
         <Route

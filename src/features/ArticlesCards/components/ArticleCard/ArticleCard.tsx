@@ -3,6 +3,7 @@ import { EntityId } from '@reduxjs/toolkit';
 import classNames from 'classnames';
 
 import BookmarkIcon from '../../../../components/iconsComponents/BookmarkIcon';
+import LogoutIcon from '../../../../components/iconsComponents/LogoutIcon';
 import TrashIcon from '../../../../components/iconsComponents/TrashIcon';
 import LazyImage from '../../../../components/LazyImage/LazyImage';
 import { useAuth } from '../../../../contexts/authContext';
@@ -49,7 +50,15 @@ const ArticleCard = ({ articleId, source }: ArticleCardProps) => {
     selectArticleBySource(state, source, articleId),
   );
 
-  const { title, image, keyword, date, text, source: articleSource } = article || {};
+  const {
+    title,
+    image,
+    keyword,
+    date,
+    text,
+    source: articleSource,
+    link,
+  } = article || {};
 
   const dispatch = useAppDispatch();
 
@@ -142,7 +151,17 @@ const ArticleCard = ({ articleId, source }: ArticleCardProps) => {
         <p className="article-card__date">{date && formatDate(date)}</p>
         <h2 className="article-card__title">{title}</h2>
         <p className="article-card__text">{text}</p>
-        <p className="article-card__source">{articleSource}</p>
+        <p className="article-card__source">
+          read more &#9658;
+          <a
+            className="article-card__link"
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {articleSource}
+          </a>
+        </p>
       </div>
     </li>
   );
