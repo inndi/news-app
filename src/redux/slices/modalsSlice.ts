@@ -8,7 +8,6 @@ export interface ModalData {
 export const MODAL_IDS = {
   login: 'login',
   register: 'register',
-  article: 'article',
 };
 
 const initialState: ModalData[] = [];

@@ -1,6 +1,6 @@
 import { SyntheticEvent, useState } from 'react';
 
-import noImageIcon from '../../assets/images/no-picture-available-icon-1.png';
+import noImageIcon from '../../assets/images/no_image_available.jpeg';
 import Spinner from '../Spinner/Spinner';
 
 interface LazyImageProps {

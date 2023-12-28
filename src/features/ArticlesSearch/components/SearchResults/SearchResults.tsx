@@ -51,7 +51,7 @@ const SearchResults = () => {
 
   const showMoreBtn = totalArticles > LIMIT && offset < totalArticles;
 
-  console.log('Render handleShowMoreArticles');
+  console.log('Render SearchResults');
   return (
     <section className="search-results">
       <PendingErrorOverlay

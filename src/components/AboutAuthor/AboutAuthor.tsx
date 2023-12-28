@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import authorAvatar from '../../assets/images/IMG_3784.jpg';
+import authorAvatar from '../../assets/images/avatar.jpg';
 import LazyImage from '../LazyImage/LazyImage';
 
 import './AboutAuthor.scss';
@@ -18,9 +18,12 @@ const AboutAuthor = () => {
         <div className="about-author__info">
           <h2 className="about-author__title">About the author</h2>
           <p className="about-author__content">
-            Hi, my name is Inna I'm a passionate and motivated junior web developer. I
-            have knowledge of React, Redux, TypeScript, JavaScript, HTML5, CSS3, Node.js,
-            Express.js, Git, SASS, BEM, Webpack, and MongoDB and can use them effectively.
+            Hi there! I am Inna, a self-motivated Junior Fullstack Developer (Frontend
+            oriented). Fast learner who thrives in fast-paced, dynamic, and demanding
+            environments.
+          </p>
+          <p className="about-author__content">
+            My main stack is React, Redux, TypeScript and Node.js.
           </p>
           <p className="about-author__content">
             I'm able to help businesses grow and increase their audience reach through the
