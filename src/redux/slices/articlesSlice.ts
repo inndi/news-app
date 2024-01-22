@@ -64,7 +64,7 @@ export const articlesSlice = createSlice({
 
           action.payload.articles.forEach((article) => {
             articles.push({
-              keyword: action.payload.keyword,
+              keyword: action.payload.keyword.toLowerCase(),
               title: article.title,
               text: article.description,
               date: article.publishedAt,
@@ -75,7 +75,7 @@ export const articlesSlice = createSlice({
           });
 
           articlesAdapter.upsertMany(state, articles);
-          state.keyword = action.payload.keyword;
+          state.keyword = action.payload.keyword.toLowerCase();
           state.pending = false;
         }
         state.pending = false;
